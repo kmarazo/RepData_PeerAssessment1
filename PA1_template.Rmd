@@ -19,7 +19,7 @@ data$date <- as.Date(as.character(data$date, format="%Y/%m/%d"))
 
 ## What is mean total number of steps taken per day?
 
-1. Histogram of the total number of steps taken each day
+1) Histogram of the total number of steps taken each day
 ```{r}
 qplot(data$date, data=data, weight=data$steps, geom="histogram", binwidth = 1) + 
   xlab("Date") + 
@@ -27,7 +27,7 @@ qplot(data$date, data=data, weight=data$steps, geom="histogram", binwidth = 1) +
   ggtitle("Total number of steps per day")
 ```
 
-2. Transform data using plyr:
+2) Transform data using plyr:
 ```{r}
 data.sum.steps.per.day <- ddply(data, c("date"), function(df)c(sum(df$steps, na.rm=TRUE)))
 ```
@@ -43,7 +43,7 @@ median(data.sum.steps.per.day$V1, na.rm=TRUE)
 
 ## What is the average daily activity pattern?
 
-1. Transform data using plyr:
+1) Transform data using plyr:
 ```{r}
 num_days <- length(unique(data$date))
 data.avg.steps.per.interval <- ddply(data, c("interval"), function(df)c(sum(df$steps, na.rm=TRUE)/num_days))
@@ -57,19 +57,19 @@ qplot(data.avg.steps.per.interval$interval, data.avg.steps.per.interval$V1, geom
   ggtitle("Average daily activity pattern")
 ```
 
-2. The 5 minute interval that contains the maximum number of steps (averaged across all days is):
+2) The 5 minute interval that contains the maximum number of steps (averaged across all days is):
 ```{r}
 data.avg.steps.per.interval[which.max(data.avg.steps.per.interval$V1), c("interval")]
 ```
 
 ## Imputing missing values
 
-1. The total number of missing values in the dataset is:
+1) The total number of missing values in the dataset is:
 ```{r}
 length(data[is.na(data$steps), c("steps")])
 ```
 
-2-3. Impute missing values
+2-3) Impute missing values
 Copy the data and for convert each NA to the average number of steps for that interval:
 ```{r}
 data.impute <- data
@@ -80,7 +80,7 @@ for(index in na.index ){
 ```
 
 
-4. Histogram of the total number of steps taken each day
+4) Histogram of the total number of steps taken each day
 ```{r}
 qplot(data.impute$date, data=data.impute, weight=data.impute$steps, geom="histogram", binwidth = 1) + 
   xlab("Date") + 

@@ -23,7 +23,7 @@ data$date <- as.Date(as.character(data$date, format = "%Y/%m/%d"))
 
 ## What is mean total number of steps taken per day?
 
-1. Histogram of the total number of steps taken each day
+1) Histogram of the total number of steps taken each day
 
 ```r
 qplot(data$date, data = data, weight = data$steps, geom = "histogram", binwidth = 1) + 
@@ -33,7 +33,7 @@ qplot(data$date, data = data, weight = data$steps, geom = "histogram", binwidth 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
 
-2. Transform data using plyr:
+2) Transform data using plyr:
 
 ```r
 data.sum.steps.per.day <- ddply(data, c("date"), function(df) c(sum(df$steps, 
@@ -64,7 +64,7 @@ median(data.sum.steps.per.day$V1, na.rm = TRUE)
 
 ## What is the average daily activity pattern?
 
-1. Transform data using plyr:
+1) Transform data using plyr:
 
 ```r
 num_days <- length(unique(data$date))
@@ -84,7 +84,7 @@ qplot(data.avg.steps.per.interval$interval, data.avg.steps.per.interval$V1,
 ![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8.png) 
 
 
-2. The 5 minute interval that contains the maximum number of steps (averaged across all days is):
+2) The 5 minute interval that contains the maximum number of steps (averaged across all days is):
 
 ```r
 data.avg.steps.per.interval[which.max(data.avg.steps.per.interval$V1), c("interval")]
@@ -97,7 +97,7 @@ data.avg.steps.per.interval[which.max(data.avg.steps.per.interval$V1), c("interv
 
 ## Imputing missing values
 
-1. The total number of missing values in the dataset is:
+1) The total number of missing values in the dataset is:
 
 ```r
 length(data[is.na(data$steps), c("steps")])
@@ -108,7 +108,7 @@ length(data[is.na(data$steps), c("steps")])
 ```
 
 
-2-3. Impute missing values
+2-3) Impute missing values
 Copy the data and for convert each NA to the average number of steps for that interval:
 
 ```r
@@ -122,7 +122,7 @@ for (index in na.index) {
 
 
 
-4. Histogram of the total number of steps taken each day
+4) Histogram of the total number of steps taken each day
 
 ```r
 qplot(data.impute$date, data = data.impute, weight = data.impute$steps, geom = "histogram", 
